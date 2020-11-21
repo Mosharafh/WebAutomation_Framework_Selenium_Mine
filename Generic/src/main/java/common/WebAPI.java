@@ -42,7 +42,6 @@ public class WebAPI {
         extent = ExtentManager.getInstance();
     }
 
-
     @BeforeMethod
     public void startExtent(Method method) {
         String className = method.getDeclaringClass().getSimpleName();
@@ -50,6 +49,7 @@ public class WebAPI {
         ExtentTestManager.startTest(method.getName());
         ExtentTestManager.getTest().assignCategory(className);
     }
+
     protected String getStackTrace(Throwable t) {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
@@ -79,10 +79,10 @@ public class WebAPI {
             }
             driver.quit();
 
-
         }
-
     }
+//@AfterSuite
+//public void generateReport(){extent.close();}
 
     public Date getTime(long millis) {
         Calendar calendar = Calendar.getInstance();
@@ -114,7 +114,7 @@ public class WebAPI {
     // Browser SetUp
     public static WebDriver driver = null;
     public String browserStack_userName = "mosharafhossain5";
-    public String browserStack_accessKey = "rxs6JjJJUiMyDTBFx57k";
+    public String browserStack_accessKey = "APDbiudsyVyKvwjnwtsc";
     public String sauceLabs_userName = "";
     public String sauceLabs_accessKey = "";
 
@@ -180,11 +180,11 @@ public class WebAPI {
         cap.setCapability("os", os);
         cap.setCapability("os_version", os_version);
 
-//        if (envName.equalsIgnoreCase("Saucelabs")) {
-//            //resolution for Saucelabs
-//            driver = new RemoteWebDriver(new URL("http://" + envUsername + ":" + envAccessKey +
-//                    "@ondemand.saucelabs.com:80/wd/hub"), cap);
-//        } else
+        if (envName.equalsIgnoreCase("Saucelabs")) {
+            //resolution for Saucelabs
+            driver = new RemoteWebDriver(new URL("http://" + envUsername + ":" + envAccessKey +
+                    "@ondemand.saucelabs.com:80/wd/hub"), cap);
+        } else
             if (envName.equalsIgnoreCase("Browserstack")) {
             cap.setCapability("resolution", "1024x768");
             driver = new RemoteWebDriver(new URL("http://" + envUsername + ":" + envAccessKey +
